@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  /* Animation duration badha di (5s) */
+  --animate-typing: typing 4s steps(30, end), blink 0.7s step-end infinite;
+  --animate-fadeOut: fadeOut 1s ease-out 10s forwards; /* fadeOut ko 5s delay kar diya */
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  /* ... baki ka code waisa hi rahega */
+}

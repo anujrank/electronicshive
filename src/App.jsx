@@ -5,7 +5,7 @@ import Home from "./componenet/Home";
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: <Applayout />,
     children: [
       {
         index: '/',

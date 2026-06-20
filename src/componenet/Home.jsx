@@ -26,7 +26,7 @@ function Home() {
   ];
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full overflow-x-hidden mt-20 lg:m-10">
       {/* Hero Section - Unchanged as requested */}
       <section className="relative w-full bg-slate-950 py-24 px-6 min-h-[85vh] flex items-center overflow-hidden">
         {/* Modern Overlay Pattern */}

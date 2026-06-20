@@ -1,68 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(true);
-
-  // Welcome screen effect
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowWelcome(false);
-    }, 2500); // 2.5 seconds tak welcome screen dikhegi
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Scroll effect
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
-    <>
-      {/* Welcome Screen */}
-      {showWelcome && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900 transition-opacity duration-1000 animate-fadeOut">
-          <h1 className="text-white text-4xl md:text-6xl font-bold tracking-tighter animate-pulse">
-            Welcome to <span className="text-orange-500">PS ELECTRONICSHIVE</span>
-          </h1>
+    <header className="fixed top-0 w-full z-50 font-sans">
+      {/* 1. Premium Top Bar */}
+      <div className="bg-slate-900 text-white text-[11px] py-2.5 px-4 tracking-wide uppercase font-medium">
+        <div className="container mx-auto flex justify-between items-center max-w-6xl">
+          <div className="flex gap-6">
+            <span className="hover:text-orange-400 transition cursor-pointer">📞 +61 685 1197</span>
+            <span className="hidden sm:block text-slate-500">|</span>
+            <span className="hidden sm:block hover:text-orange-400 transition cursor-pointer">📍 65 11th Avenue Kew Johannesburg</span>
+          </div>
+          <div className="flex gap-4">
+            <span className="hover:text-orange-400 transition cursor-pointer">Reviews</span>
+            <span className="hover:text-orange-400 transition cursor-pointer">Warranty</span>
+          </div>
         </div>
-      )}
+      </div>
 
-      {/* Header */}
-      <header className="fixed top-0 w-full z-50 font-sans">
-        {/* ... (Baaki ka code waisa hi rahega) */}
-        <div className="bg-slate-900 text-white text-[11px] py-2.5 px-4 tracking-wide uppercase font-medium">
-            <div className="container mx-auto flex justify-between items-center max-w-6xl">
-            <div className="flex gap-6">
-                <span className="hover:text-orange-400 transition cursor-pointer">📞 +61 685 1197</span>
-                <span className="hidden sm:block text-slate-500">|</span>
-                <span className="hidden sm:block hover:text-orange-400 transition cursor-pointer">📍 65 11th Avenue Kew Johannesburg</span>
-            </div>
-            </div>
-        </div>
+      {/* 2. Main Navigation */}
+      <div className="bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-100 py-4">
+        <div className="container mx-auto px-4 flex justify-between items-center max-w-6xl">
+          <div className="text-2xl font-extrabold text-slate-900 tracking-tighter">
+            PS <span className="text-orange-500">ELECTRONICSHIVE</span>
+          </div>
 
-        <div className={`transition-all duration-500 py-4 ${isScrolled ? 'bg-white/80 backdrop-blur-md shadow-lg' : 'bg-white'}`}>
-            <div className="container mx-auto px-4 flex justify-between items-center max-w-6xl">
-            <div className="text-2xl font-extrabold text-slate-900 tracking-tighter">PS <span className="text-orange-500">ELECTRONICSHIVE</span></div>
-            <button className="md:hidden text-3xl" onClick={() => setIsOpen(!isOpen)}>{isOpen ? '✕' : '☰'}</button>
-            </div>
+          <nav className="hidden md:flex items-center gap-8 font-bold text-sm text-slate-600">
+            {['Home', 'About Us', 'Services', 'Contact Us'].map((item) => (
+              <a key={item} href="#" className={`relative group transition-all duration-300 ${item === 'Home' ? 'text-orange-500' : 'hover:text-orange-500'}`}>
+                {item}
+                <span className="absolute -bottom-6 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+              </a>
+            ))}
+          </nav>
+
+          <button className="md:hidden text-3xl text-slate-900" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? '✕' : '☰'}
+          </button>
         </div>
-      </header>
-      {/* Welcome Screen with Typing Animation */}
-      {showWelcome && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900 animate-fadeOut">
-          <div className="overflow-hidden whitespace-nowrap animate-typing border-r-2 border-orange-500 max-w-fit">
-            <h1 className="text-white text-3xl md:text-5xl font-bold tracking-tighter">
-              Welcome to <span className="text-orange-500">PS ELECTRONICSHIVE</span>
-            </h1>
-          </div> 
-          {/* Yahan extra </div> tha, jo maine hata diya hai */}
+      </div>
+
+      {/* 3. Smooth Mobile Menu */}
+      <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out bg-slate-900 ${isOpen ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="flex flex-col items-center gap-6 py-6 text-white">
+          {['Home', 'About Us', 'Services', 'Contact Us'].map((item) => (
+            <a key={item} href="#" className="text-lg hover:text-orange-400 transition">{item}</a>
+          ))}
         </div>
-      )}
-    </>
+      </div>
+    </header>
   );
 };
 
